@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block titulo %}Editar funcionário{% endblock titulo %}
+{% block conteudo %}
+    <form method="POST">{% csrf_token %}
+        {{ editar_funcionario.nome }}<br>
+        {{ editar_funcionario.email }}<br>
+        {{ editar_funcionario.cargo }}<br>
+        <button>Salvar</button>
+        {% if messages %}
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </form>
+{% endblock conteudo %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block titulo %}Cadastrar usuário{% endblock titulo %}
+{% block conteudo %}
+	<form method="POST">{% csrf_token %}
+		{{ registration_form.nome }}<br>
+		{{ registration_form.email }}<br>
+		{{ registration_form.cpf }}<br>
+		{{ registration_form.cargo }}<br>
+		{{ registration_form.password1 }}<br>
+		{{ registration_form.password2 }}<br>
+		<button>Cadastrar</button>
+		{% if messages %}
+			<div class="alert">
+  			<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  				{% for message in messages %}
+  					<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  				{% endfor %}
+			</div>
+		{% endif %}
+	</form>
+	<script type="text/javascript">
+    	$("#cpf").mask("000.000.000-00");
+ 	</script>
+{% endblock conteudo %}

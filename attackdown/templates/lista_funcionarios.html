@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Funcionários cadastrados{% endblock titulo %}
+{% block conteudo %}
+	<table border=1 style="width: 100%;">
+        <tr style="color: red;">
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Cargo</th>
+            <th>Email</th>
+            <th>lapis</th>
+        </tr>
+        {% for funcionario in lista_funcionarios %}
+        <tr>
+            <th>{{ funcionario.nome }}</th>
+            <th>{{ funcionario.cpf }}</th>
+            <th>{{ funcionario.cargo }}</th>
+            <th>{{ funcionario.email }}</th>
+            <th><a href="{% url 'editar-funcionario' funcionario.cpf %}">editar</a></th>
+        </tr>
+        {% endfor %}
+    </table>    
+{% endblock conteudo %}

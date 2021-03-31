@@ -1,0 +1,117 @@
+<html>
+<head>
+<title>{% block titulo %}{%endblock titulo %}</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<style>
+	.bs-canvas-overlay {
+   		opacity: 0.85;
+		z-index: 1100;
+	}
+	
+	.bs-canvas {
+		top: 0;
+		z-index: 1110;
+		overflow-x: hidden;
+		overflow-y: auto;
+		width: 330px;
+		transition: margin .4s ease-out;
+		-webkit-transition: margin .4s ease-out;
+		-moz-transition: margin .4s ease-out;
+		-ms-transition: margin .4s ease-out;
+	}
+	
+	.bs-canvas-left {
+		left: 0;
+		margin-left: -330px;
+	}
+	
+	.bs-canvas-right {
+		right: 0;
+		margin-right: -330px;
+	}
+	
+	/* Only for demo */
+	body {
+    	min-height: 100vh;
+	}	
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-xl navbar-dark bg-info">
+	<a class="navbar-brand" href="http://127.0.0.1:8000/index/">Attackdown</a>
+	<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+    <a class="pull-bs-canvas-right ml-3 order-xl-last btn btn-warning" href="#">&laquo;</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="#">{{user.cpf}}<span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Link</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Funções administrativas
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="/accounts/register">Novo funcionário</a>
+					<a class="dropdown-item" href="/accounts/lista_funcionarios">Funcionários cadastrados</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Outra outra coisa</a>
+				</div>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/accounts/logout" tabindex="-1">Sair</a>
+			</li>
+		</ul>
+		<form class="form-inline my-2 my-lg-0">
+			<input class="form-control mr-sm-2" type="search" placeholder="digite" aria-label="Search">
+			<button class="btn btn-light my-2 my-sm-0" type="submit">Pesquisar</button>
+		</form>
+	</div>    
+</nav>
+<div class="d-flex justify-content-around my-5">
+    <div class="flex-grow-1 text-center align-self-center">    	
+    	<h4 class="h4">Attackdown</h4>
+        <p class="lead">Versão administrativa</p>            
+    </div>
+    <div class="text-center border p-2 mx-5">
+    	<a class="pull-bs-canvas-right d-block text-primary text-decoration-none" href="#">
+        	<span class="display-3">&#9776;</span>
+            <h6>Menu</h6>
+        </a>
+    </div>
+</div>
+<div class="container">
+	{% block conteudo %}
+	{% endblock conteudo %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script>
+jQuery(document).ready(function($){
+	$(document).on('click', '.pull-bs-canvas-right, .pull-bs-canvas-left', function(){
+		$('body').prepend('<div class="bs-canvas-overlay bg-dark position-fixed w-100 h-100"></div>');
+		if($(this).hasClass('pull-bs-canvas-right'))
+			$('.bs-canvas-right').addClass('mr-0');
+		else
+			$('.bs-canvas-left').addClass('ml-0');
+		return false;
+	});
+	
+	$(document).on('click', '.bs-canvas-close, .bs-canvas-overlay', function(){
+		var elm = $(this).hasClass('bs-canvas-close') ? $(this).closest('.bs-canvas') : $('.bs-canvas');
+		elm.removeClass('mr-0 ml-0');
+		$('.bs-canvas-overlay').remove();
+		return false;
+	});
+});
+</script>
+</body>
+</html>
