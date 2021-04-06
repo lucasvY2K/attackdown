@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block titulo %}Novo pedido{% endblock titulo %}
+{% block conteudo %}
+    <form method="POST">{% csrf_token %}
+        {{ form.nomeFuncionario }}<br>
+        {{ form.dataPedido }}<br>
+        {{ form.status }}<br>
+        {{ form.valorTotal }}<br>
+        <button>Salvar</button>
+    </form>
+{% endblock conteudo %}
