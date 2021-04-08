@@ -1,5 +1,6 @@
 from django.db import models
 from account.models import Account
+from produto.models import Produto
 
 # Create your models here.
 class Pedido(models.Model):
@@ -8,3 +9,5 @@ class Pedido(models.Model):
     dataPedido = models.DateField()
     status = models.BooleanField()
     valorTotal = models.DecimalField(max_digits=7, decimal_places=2)
+    produto = models.ManyToManyField(Produto)
+    quantidade = models.IntegerField()
