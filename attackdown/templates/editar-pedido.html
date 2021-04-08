@@ -1,10 +1,7 @@
 {% extends "base.html" %}
-{% block titulo %}Novo pedido{% endblock titulo %}
+{% block titulo %}Atualizando pedido{% endblock titulo %}
 {% block conteudo %}
     <form method="POST">{% csrf_token %}
-        {{ form.nomeFuncionario }}<br>
-        <label>Data do pedido</label>
-        {{ form.dataPedido }}<br>
         <label>Pedido ativo</label>
         {{ form.status }}<br>
         <label>Preço</label>

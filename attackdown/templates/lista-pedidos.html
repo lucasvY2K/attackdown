@@ -17,7 +17,7 @@
             <th>{{ pedido.dataPedido }}</th>
             <th>{% if pedido.status %}Ativo{% else %}Inativo{% endif %}</th>
             <th>{{ pedido.valorTotal }}</th>
-            <th>editar</th>
+            <th><a href="{% url 'editar-pedido' pedido.idPedido %}">editar</a></th>
         </tr>
         {% endfor %}
     </table>    
