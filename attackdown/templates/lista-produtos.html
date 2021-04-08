@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block titulo %}Produtos{% endblock titulo %}
+{% block conteudo %}
+	<table border=1 style="width: 100%;">
+        <tr style="color: red;">
+            <th>Código</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Preço unidade/kg</th>
+            <th>Quantidade</th>
+            <th>Peso</th>
+            <th>Editar</th>
+        </tr>
+        {% for produto in produtos %}
+        <tr {% if produto.quantidade == 0 %} style="color: grey;"{% endif %}>
+            <th>{{ produto.idProduto }}</th>
+            <th>{{ produto.nome }}</th>
+            <th>{{ produto.descricao }}</th>
+            <th>{{ produto.preco }}</th>
+            <th>{{ produto.quantidade }}</th>
+            <th>{{ produto.peso }}</th>
+            <th><a href="{% url 'editar-produto' produto.idProduto %}">editar</a></th>
+        </tr>
+        {% endfor %}
+    </table>    
+{% endblock conteudo %}

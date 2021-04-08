@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Editar produto{% endblock titulo %}
+{% block conteudo %}
+    <form method="POST">{% csrf_token %}
+        <label>nome</label>
+        {{ produto.nome }}<br>
+        <label>Descrição</label>
+        {{ produto.descricao }}<br>
+        <label>Preço</label>
+        {{ produto.preco }}<br>
+        <label>Quantidade</label>
+        {{ produto.quantidade }}<br>
+        <label>Peso</label>
+        {{ produto.peso }}<br>
+        <button>Salvar</button>
+    </form>
+{% endblock conteudo %}

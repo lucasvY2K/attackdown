@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Novo produto{% endblock titulo %}
+{% block conteudo %}
+    <form method="POST">{% csrf_token %}
+        <label>nome</label>
+        {{ produto_form.nome }}<br>
+        <label>Descrição</label>
+        {{ produto_form.descricao }}<br>
+        <label>Preço</label>
+        {{ produto_form.preco }}<br>
+        <label>Quantidade</label>
+        {{ produto_form.quantidade }}<br>
+        <label>Peso</label>
+        {{ produto_form.peso }}<br>
+        <button>Salvar</button>
+    </form>
+{% endblock conteudo %}
