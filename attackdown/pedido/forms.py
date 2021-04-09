@@ -13,16 +13,16 @@ class PedidoForm(forms.ModelForm):
     nomeFuncionario = forms.ModelChoiceField(queryset=Account.objects.all(), widget=forms.HiddenInput(), required=False)
     dataPedido = forms.DateField(initial=datetime.date.today)
     status = forms.BooleanField(initial=True, required=False)
-    valorTotal = forms.DecimalField(initial=0.10)
-    produto = ProdutoModelMultipleChoiceField(queryset=Produto.objects.all(), widget=forms.CheckboxSelectMultiple())
+    produto = ProdutoModelMultipleChoiceField(queryset=Produto.objects.all())
+    quantidade = forms.IntegerField(min_value=1)
     class Meta:
         model = Pedido
-        fields = ("nomeFuncionario", "dataPedido", "status", "valorTotal", "produto")
+        fields = ("nomeFuncionario", "dataPedido", "status", "quantidade", "produto")
 
 class EditarPedido(forms.ModelForm):
     status = forms.BooleanField(initial=False, required=False)
-    valorTotal = forms.DecimalField(initial=0.10)
+    quantidade = forms.IntegerField(min_value=1)
 
     class Meta:
         model = Pedido
-        fields = ("status", "valorTotal")
+        fields = ("status", "quantidade")

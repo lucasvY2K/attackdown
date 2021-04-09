@@ -8,6 +8,6 @@ class Pedido(models.Model):
     nomeFuncionario = models.ForeignKey(Account, default=None, on_delete=models.DO_NOTHING, null=True)
     dataPedido = models.DateField()
     status = models.BooleanField()
-    valorTotal = models.DecimalField(max_digits=7, decimal_places=2)
+    valorTotal = models.DecimalField(max_digits=7, decimal_places=2, null=True)
     produto = models.ManyToManyField(Produto)
-    quantidade = models.IntegerField()
+    quantidade = models.IntegerField(default=1)

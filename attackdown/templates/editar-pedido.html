@@ -4,8 +4,8 @@
     <form method="POST">{% csrf_token %}
         <label>Pedido ativo</label>
         {{ form.status }}<br>
-        <label>Preço</label>
-        {{ form.valorTotal }}<br>
+        <label>Quantidade</label>
+        {{ form.quantidade }}<br>
         <button>Salvar</button>
     </form>
 {% endblock conteudo %}

@@ -3,14 +3,17 @@
 {% block conteudo %}
     <form method="POST">{% csrf_token %}
         {{ form.nomeFuncionario }}<br>
-        <label>Data do pedido</label>
-        {{ form.dataPedido }}<br>
-        <label>Pedido ativo</label>
-        {{ form.status }}<br>
-        <label>Produto</label>
-        {{ form.produto }}<br>
-        <label>Preço</label>
-        {{ form.valorTotal }}<br>
+        <label style="margin-right: 10%;">Data do pedido</label>
+        {{ form.dataPedido }}
+        <div class="dropdown-divider"></div>
+        <label style="margin-right: 10%;">Pedido ativo</label>
+        {{ form.status }}
+        <div class="dropdown-divider"></div>
+        <label style="margin-right: 10%;">Produto</label>
+        {{ form.produto }}
+        <div class="dropdown-divider"></div>
+        <label style="margin-right: 10%;">Quantidade</label>
+        {{ form.quantidade }}
         <button>Salvar</button>
     </form>
 {% endblock conteudo %}

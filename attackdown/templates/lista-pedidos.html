@@ -7,6 +7,8 @@
             <th>Funcionário</th>
             <th>Data</th>
             <th>Status</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
             <th>Valor</th>
             <th>Editar</th>
         </tr>
@@ -16,6 +18,8 @@
             <th>{{ pedido.nomeFuncionario.nome }}</th>
             <th>{{ pedido.dataPedido }}</th>
             <th>{% if pedido.status %}Ativo{% else %}Inativo{% endif %}</th>
+            <th>{{ pedido.produto.nome }}</th>
+            <th>{{ pedido.quantidade }}</th>
             <th>{{ pedido.valorTotal }}</th>
             <th><a href="{% url 'editar-pedido' pedido.idPedido %}">editar</a></th>
         </tr>

@@ -3,16 +3,27 @@ from account.models import Account
 from .models import Pedido
 from .forms import PedidoForm, EditarPedido
 from django.http import request
+from produto.models import Produto
 
 # Create your views here.
+def calcular_valor_total(preco_produto, quantidade_produto):
+    return preco_produto * quantidade_produto
+
+
 def criar_pedido(request):
     context = {}
     form = PedidoForm(request.POST or None)
     if form.is_valid():
         pedido = form.save()
         pedido.nomeFuncionario = request.user
+        produto = pedido.produto.get()
+        preco_produto = produto.preco
+        quantidade_produtos = pedido.quantidade
+        pedido.valorTotal = calcular_valor_total(preco_produto, quantidade_produtos)
         pedido.save()
         form = Pedido()
+        produto.quantidade -= pedido.quantidade
+        produto.save()
         return redirect("/pedidos/lista")
     context['form'] = form
     return render(request, 'pedido.html', context)
