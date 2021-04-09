@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block titulo %}Cadastrar usuário{% endblock titulo %}
 {% block conteudo %}
+{% block titulobody %}Novo usuário{%endblock titulobody %}
 	<form method="POST">{% csrf_token %}
 		{{ registration_form.nome }}<br>
 		{{ registration_form.email }}<br>

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block titulo %}Atualizando pedido{% endblock titulo %}
 {% block conteudo %}
+{% block titulobody %}Atualizar pedido{%endblock titulobody %}
     <form method="POST">{% csrf_token %}
         <label>Pedido ativo</label>
         {{ form.status }}<br>

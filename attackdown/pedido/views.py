@@ -4,6 +4,7 @@ from .models import Pedido
 from .forms import PedidoForm, EditarPedido
 from django.http import request
 from produto.models import Produto
+from django.contrib import messages
 
 # Create your views here.
 def calcular_valor_total(preco_produto, quantidade_produto):
@@ -20,11 +21,14 @@ def criar_pedido(request):
         preco_produto = produto.preco
         quantidade_produtos = pedido.quantidade
         pedido.valorTotal = calcular_valor_total(preco_produto, quantidade_produtos)
-        pedido.save()
-        form = Pedido()
-        produto.quantidade -= pedido.quantidade
-        produto.save()
-        return redirect("/pedidos/lista")
+        if pedido.quantidade <= produto.quantidade:
+            pedido.save()
+            form = Pedido()
+            produto.quantidade -= pedido.quantidade
+            produto.save()
+            return redirect("/pedidos/lista")
+        else:
+            messages.warning(request, 'Não há esta quantidade do produto em estoque')
     context['form'] = form
     return render(request, 'pedido.html', context)
 
