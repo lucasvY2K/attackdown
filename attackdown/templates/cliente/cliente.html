@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Novo cliente{% endblock titulo %}
+{% block conteudo %}
+    <form method="POST">{% csrf_token %}
+        <label>CPF</label>
+        {{ cliente_form.cpf }}<br>
+        <label>Nome</label>
+        {{ cliente_form.nome }}<br>
+        <label>Email</label>
+        {{ cliente_form.email }}<br>
+        <label>Endereco</label>
+        {{ cliente_form.endereco }}<br>
+        <label>Telefone</label>
+        {{ cliente_form.telefone }}<br>
+        <button>Salvar</button>
+    </form>
+{% endblock conteudo %}

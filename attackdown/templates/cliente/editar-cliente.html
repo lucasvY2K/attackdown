@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Editar cliente{% endblock titulo %}
+{% block conteudo %}
+    <form method="POST">{% csrf_token %}
+        <label>CPF</label>
+        {{ cliente.cpf }}<br>
+        <label>Nome</label>
+        {{ cliente.nome }}<br>
+        <label>Email</label>
+        {{ cliente.email }}<br>
+        <label>Endereco</label>
+        {{ cliente.endereco }}<br>
+        <label>Telefone</label>
+        {{ cliente.telefone }}<br>
+        <button>Salvar</button>
+    </form>
+{% endblock conteudo %}

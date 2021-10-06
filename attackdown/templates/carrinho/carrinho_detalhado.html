@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block titulo %}Carrinho{% endblock titulo %}
+
+{% block titulobody %}Carrinho{%endblock titulobody %}
+
+{% block conteudo %}
+<table border=1 style="width: 100%;">
+    <tr style="color: red;">
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>Preço unitário</th>
+        <th>Preço total</th>
+        <th></th>
+    </tr>
+    {% for item in carrinho %}
+    {% with produto=item.produto %}
+    <tr {% if produto.quantidade == 0 %} style="color: grey;"{% endif %}>
+        <th>{{ produto.nome }}</th>
+        <th>
+            <form action="{% url 'add-carrinho' produto.idProduto %}" method="post">
+                {% csrf_token %}
+                {% render_field item.update_quantidade_form.quantidade class+="form-control" %}
+                <input type="submit" value="Atualizar">
+                {{ item.update_quantidade_form.override }}
+            </form>
+        </th>
+        <th>{{ item.preco }}</th>
+        <th>{{ item.preco_total }}</th>
+        <th>
+            <form action="{% url 'remove-carrinho' produto.idProduto %}" method="post">
+                {% csrf_token %}
+                <input class="btn btn-danger" type="submit" value="Remover">
+            </form>
+        </th>
+    </tr>
+    {% endwith %}
+    {% endfor %}
+</table>
+<br>
+<p><b>preço final: {{ carrinho.get_preco_total }}</b></p>
+
+{% endblock conteudo %}

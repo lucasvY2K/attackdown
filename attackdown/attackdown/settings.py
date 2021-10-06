@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'account',
     'pedido',
     'produto',
+    'cliente',
+    'carrinho',
 ]
 
 MIDDLEWARE = [
@@ -79,10 +82,21 @@ WSGI_APPLICATION = 'attackdown.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Attackdown',
+        'USER': 'postgres',
+        'PASSWORD': 'batata',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+""" DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
+} """
 
 AUTH_USER_MODEL = 'account.Account'
 
@@ -123,3 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#Carrinho
+CARRINHO_ITEM_MAX_QUANTIDADE = 20
+CARRINHO_SESSION_ID = "carrinho"

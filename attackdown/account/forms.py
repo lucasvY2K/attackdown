@@ -33,7 +33,7 @@ class RegistrationForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class':'form-control input-registro',
                                       'placeholder':'Nome e sobrenome'
         }))
-    cargo = forms.CharField(max_length=35, required=True, label='Nome',
+    cargo = forms.CharField(max_length=35, required=True, label='Nome', initial='Gerente',
         widget=forms.TextInput(attrs={'class':'form-control input-registro'
         }))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control input-registro',

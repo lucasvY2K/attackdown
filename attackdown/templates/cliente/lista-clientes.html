@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block titulo %}Clientes{% endblock titulo %}
+{% block conteudo %}
+{% block titulobody %}Clientes cadastrados{%endblock titulobody %}
+	<table border=1 style="width: 100%;">
+        <tr style="color: red;">
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Endereço</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Editar</th>
+        </tr>
+        {% for cliente in clientes %}
+        <tr>
+            <th>{{ cliente.cpf }}</th>
+            <th>{{ cliente.nome }}</th>
+            <th>{{ cliente.endereco }}</th>
+            <th>{{ cliente.email }}</th>
+            <th>{{ cliente.telefone }}</th>
+            <th><a href="{% url 'editar-cliente' cliente.cpf %}">editar</a></th>
+        </tr>
+        {% endfor %}
+    </table>    
+{% endblock conteudo %}

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block titulo %}Produtos{% endblock titulo %}
-{% block conteudo %}
 {% block titulobody %}Produtos cadastrados{%endblock titulobody %}
+{% block conteudo %}
 	<table border=1 style="width: 100%;">
         <tr style="color: red;">
             <th>Código</th>
@@ -11,6 +11,7 @@
             <th>Quantidade</th>
             <th>Peso</th>
             <th>Editar</th>
+            <th>carrinho</th>
         </tr>
         {% for produto in produtos %}
         <tr {% if produto.quantidade == 0 %} style="color: grey;"{% endif %}>
@@ -21,6 +22,15 @@
             <th>{{ produto.quantidade }}</th>
             <th>{{ produto.peso }}</th>
             <th><a href="{% url 'editar-produto' produto.idProduto %}">editar</a></th>
+            <th><form action="{% url 'add-carrinho' produto.idProduto %}" method="post">{% csrf_token %}
+                <div class="col">
+                    {{ form.quantidade }}
+                </div>
+                <div class="col">
+                    <input type="submit" class="bttn" value="Add">
+                </div>
+                </form>
+            </th>
         </tr>
         {% endfor %}
     </table>    

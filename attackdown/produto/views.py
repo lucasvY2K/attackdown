@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import request
 from .models import Produto
 from .forms import ProdutoForm
+from carrinho.forms import CarrinhoAddProdutoForm
 
 # Create your views here.
 def novo_produto(request):
@@ -18,8 +19,10 @@ def novo_produto(request):
 def lista_produtos(request):
     queryset = Produto.objects.all()
     context = {
-        'produtos':queryset
+        'produtos':queryset,
+        'form':CarrinhoAddProdutoForm(),
     }
+    
     return render(request, 'lista-produtos.html', context)
 
 def editar_produto(request, id_produto):
