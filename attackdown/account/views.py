@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, request
 from django.contrib import messages
 from django.contrib.auth.models import AbstractUser  
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import REDIRECT_FIELD_NAME, login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+
 from .models import Account
 from .forms import AccountAuthenticationForm, RegistrationForm, EditarFuncionarioForm
 from django import forms
@@ -39,7 +41,7 @@ def register(request):
             account = form.save()
             account.save()
             messages.success(request, 'Usuário cadastrado')
-            return redirect("/accounts/register")
+            return redirect("/accounts/lista_funcionarios")
         else:
             context['registration_form'] = form
     else:
@@ -48,10 +50,12 @@ def register(request):
 
     return render(request, 'registration/novo_user.html', context)
 
+@login_required(login_url='/accounts/login')
 def logout_view(request):
     logout(request)
     return redirect("/accounts/login")
 
+@login_required(login_url='/accounts/login')
 def exibir_funcionarios(request):
     usuario = request.user
 
@@ -64,6 +68,7 @@ def exibir_funcionarios(request):
     else:
         return redirect("/")
 
+@login_required(login_url='/accounts/login')
 def editar_funcionarios(request, cpf_funcionario):
     usuario = request.user
     funcionario = get_object_or_404(Account, cpf=cpf_funcionario)

@@ -3,7 +3,9 @@ from django.db.models import fields
 from .models import Cliente
 
 class ClienteForm(forms.ModelForm):
-    cpf = forms.CharField()
+    cnpj = forms.CharField(
+        widget=forms.TextInput(attrs={'name':'cnpj','id':'cnpj'})
+    )
     nome = forms.CharField()
     email = forms.CharField()
     endereco = forms.CharField()
@@ -11,4 +13,4 @@ class ClienteForm(forms.ModelForm):
 
     class Meta:
         model = Cliente
-        fields = ("cpf", "nome", "email", "endereco", "telefone")
+        fields = ("cnpj", "nome", "email", "endereco", "telefone")

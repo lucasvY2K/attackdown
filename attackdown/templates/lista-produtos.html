@@ -15,14 +15,14 @@
         </tr>
         {% for produto in produtos %}
         <tr {% if produto.quantidade == 0 %} style="color: grey;"{% endif %}>
-            <th>{{ produto.idProduto }}</th>
+            <th>{{ produto.produto_id }}</th>
             <th>{{ produto.nome }}</th>
             <th>{{ produto.descricao }}</th>
             <th>{{ produto.preco }}</th>
             <th>{{ produto.quantidade }}</th>
             <th>{{ produto.peso }}</th>
-            <th><a href="{% url 'editar-produto' produto.idProduto %}">editar</a></th>
-            <th><form action="{% url 'add-carrinho' produto.idProduto %}" method="post">{% csrf_token %}
+            <th><a href="{% url 'editar-produto' produto.produto_id %}">editar</a></th>
+            <th><form action="{% url 'add-carrinho' produto.produto_id %}" method="post">{% csrf_token %}
                 <div class="col">
                     {{ form.quantidade }}
                 </div>

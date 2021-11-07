@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block titulo %}Terminar pedido{% endblock titulo %}
+
+{% block conteudo %}
+<div style="width: 100%; height: 100%; align-content: center;">
+    <div style="width: 50%; margin-right: auto; margin-left: auto;">
+        <table border=1 style="display: inline-block; border-right: none;">
+            <tr >
+                <th>Produto</th>
+            </tr>
+            {% for nome in nomes %}
+            <tr>
+                <th>{{nome.nome}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <table border=1 style="display: inline-block; border-right: none; border-left: none; padding-left: -20px;">
+            <tr>
+                <th>Quantidade</th>
+                <th>Preço/unidade</th>
+            </tr>
+            {% for item in itens %}
+            <tr>
+                <th>{{item.quantidade}}</th>
+                <th>{{item.preco}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <table border=1 style="display: inline-block; border-left: none;">
+            <tr >
+                <th>Preço total</th>
+            </tr>
+            {% for preco in precos %}
+            <tr>
+                <th>{{preco}}</th>
+            </tr>
+            {% endfor %}
+        </table><br><br>
+        <b>PREÇO TOTAL = {{preco_final}}</b>
+        {% if not pedido.status %}
+        <form action="{% url 'pedidos:finaliza' pedido.id %}" method="post">
+            {% csrf_token %}
+            {{form.status}}
+            <input type="submit" class="btn btn-primary" value="Terminar pedido">
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock conteudo %}

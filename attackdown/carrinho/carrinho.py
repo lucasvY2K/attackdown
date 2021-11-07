@@ -16,9 +16,9 @@ class Carrinho:
     def __iter__(self):
         carrinho = copy.deepcopy(self.carrinho)
 
-        produtos = Produto.objects.filter(idProduto__in=carrinho)
+        produtos = Produto.objects.filter(produto_id__in=carrinho)
         for produto in produtos:
-            carrinho[str(produto.idProduto)]["produto"] = produto
+            carrinho[str(produto.produto_id)]["produto"] = produto
         
         for item in carrinho.values():
             item["preco"] = Decimal(item["preco"])
@@ -33,7 +33,7 @@ class Carrinho:
         return sum(item["quantidade"] for item in self.carrinho.values())
 
     def add(self, produto, quantidade=1, override_quantidade=False):
-        id_produto = str(produto.idProduto)
+        id_produto = str(produto.produto_id)
         
         if id_produto not in self.carrinho:
             self.carrinho[id_produto] = {
@@ -50,7 +50,7 @@ class Carrinho:
         self.save()
 
     def remove(self, produto):
-        id_produto = str(produto.idProduto)
+        id_produto = str(produto.produto_id)
 
         if id_produto in self.carrinho:
             del self.carrinho[id_produto]
@@ -63,3 +63,7 @@ class Carrinho:
 
     def save(self):
         self.session.modified = True
+
+    def clear(self):
+        del self.session[settings.CARRINHO_SESSION_ID]
+        self.save()

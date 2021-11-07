@@ -2,8 +2,8 @@
 {% block titulo %}Novo cliente{% endblock titulo %}
 {% block conteudo %}
     <form method="POST">{% csrf_token %}
-        <label>CPF</label>
-        {{ cliente_form.cpf }}<br>
+        <label>CNPJ</label>
+        {{ cliente_form.cnpj }}<br>
         <label>Nome</label>
         {{ cliente_form.nome }}<br>
         <label>Email</label>
@@ -14,4 +14,7 @@
         {{ cliente_form.telefone }}<br>
         <button>Salvar</button>
     </form>
+    <script type="text/javascript">
+    	$("#cnpj").mask("00.000.000.0000-00");
+ 	</script>
 {% endblock conteudo %}

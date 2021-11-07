@@ -20,7 +20,7 @@
     <tr {% if produto.quantidade == 0 %} style="color: grey;"{% endif %}>
         <th>{{ produto.nome }}</th>
         <th>
-            <form action="{% url 'add-carrinho' produto.idProduto %}" method="post">
+            <form action="{% url 'add-carrinho' produto.produto_id %}" method="post">
                 {% csrf_token %}
                 {% render_field item.update_quantidade_form.quantidade class+="form-control" %}
                 <input type="submit" value="Atualizar">
@@ -30,7 +30,7 @@
         <th>{{ item.preco }}</th>
         <th>{{ item.preco_total }}</th>
         <th>
-            <form action="{% url 'remove-carrinho' produto.idProduto %}" method="post">
+            <form action="{% url 'remove-carrinho' produto.produto_id %}" method="post">
                 {% csrf_token %}
                 <input class="btn btn-danger" type="submit" value="Remover">
             </form>
@@ -41,5 +41,9 @@
 </table>
 <br>
 <p><b>preço final: {{ carrinho.get_preco_total }}</b></p>
-
+<br>
+<div>
+    <a href="/produto/lista"><button class="btn btn-primary">Voltar aos produtos</button></a>
+    <a href="{% url 'pedidos:criar' %}"><button class="btn btn-success">Finalizar compra</button></a>
+</div>
 {% endblock conteudo %}

@@ -1,28 +1,43 @@
+from django.db.models import fields
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Fieldset, Layout, Submit
 from django import forms
+
 from .models import Pedido
-from account.models import Account
-from produto.models import Produto
-import datetime
-from django.forms import ModelChoiceField
+from pedido import models
 
-class ProdutoModelMultipleChoiceField(forms.ModelMultipleChoiceField):
-    def label_from_instance(self, obj):
-        return obj.nome
 
-class PedidoForm(forms.ModelForm):
-    nomeFuncionario = forms.ModelChoiceField(queryset=Account.objects.all(), widget=forms.HiddenInput(), required=False)
-    dataPedido = forms.DateField(initial=datetime.date.today)
-    status = forms.BooleanField(initial=True, required=False)
-    produto = ProdutoModelMultipleChoiceField(queryset=Produto.objects.all())
-    quantidade = forms.IntegerField(min_value=1)
+class PedidoCreateForm(forms.ModelForm):
     class Meta:
         model = Pedido
-        fields = ("nomeFuncionario", "dataPedido", "status", "quantidade", "produto")
+        fields = [
+            "cnpj",
+            "status",
+        ]
 
-class EditarPedido(forms.ModelForm):
-    status = forms.BooleanField(initial=False, required=False)
-    quantidade = forms.IntegerField(min_value=1)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = "post"
+        self.helper.form_action = "."
+        self.helper.add_input(
+            Submit(
+                "submit",
+                "Finalizar compra",
+                css_class="btn btn-success btn-lg btn-block",
+            )
+        )
+        self.helper.layout = Layout(
+            Fieldset(
+                "",
+                "cnpj",
+                "status",
+                css_class="border-bottom mb-3",
+            )
+        )
 
+class FinalizaPedidoForm(forms.ModelForm):
     class Meta:
-        model = Pedido
-        fields = ("status", "quantidade")
+        model = models.Pedido
+        fields = ['status']
+        
